@@ -1,0 +1,385 @@
+fileFormatVersion: 2
+guid: ff6e38f3b81d19a4382de19799fe4e65
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: test bomb_0
+    21300002: test bomb_1
+    21300004: test bomb_2
+    21300006: test bomb_3
+    21300008: test bomb_4
+    21300010: test bomb_5
+    21300012: test bomb_6
+    21300014: test bomb_7
+    21300016: test bomb_8
+    21300018: test bomb_9
+    21300020: test bomb_10
+    21300022: test bomb_11
+    21300024: test bomb_12
+    21300026: test bomb_13
+    21300028: test bomb_14
+    21300030: test bomb_15
+    21300032: test bomb_16
+    21300034: test bomb_17
+    21300036: test bomb_18
+    21300038: test bomb_19
+    21300040: test bomb_20
+    21300042: test bomb_21
+    21300044: test bomb_22
+    21300046: test bomb_23
+    21300048: test bomb_24
+    21300050: test bomb_25
+    21300052: test bomb_26
+    21300054: test bomb_27
+    21300056: test bomb_28
+    21300058: test bomb_29
+    21300060: test bomb_30
+    21300062: test bomb_31
+    21300064: test bomb_32
+    21300066: test bomb_33
+    21300068: test bomb_34
+    21300070: test bomb_35
+    21300072: test bomb_36
+    21300074: test bomb_37
+    21300076: test bomb_38
+    21300078: test bomb_39
+    21300080: test bomb_40
+    21300082: test bomb_41
+    21300084: test bomb_42
+    21300086: test bomb_43
+    21300088: test bomb_44
+    21300090: test bomb_45
+    21300092: test bomb_46
+    21300094: test bomb_47
+    21300096: test bomb_48
+    21300098: test bomb_49
+    21300100: test bomb_50
+    21300102: test bomb_51
+    21300104: test bomb_52
+    21300106: test bomb_53
+    21300108: test bomb_54
+    21300110: test bomb_55
+    21300112: test bomb_56
+    21300114: test bomb_57
+    21300116: test bomb_58
+    21300118: test bomb_59
+    21300120: test bomb_60
+    21300122: test bomb_61
+    21300124: test bomb_62
+    21300126: test bomb_63
+    21300128: test bomb_64
+    21300130: test bomb_65
+    21300132: test bomb_66
+    21300134: test bomb_67
+    21300136: test bomb_68
+    21300138: test bomb_69
+    21300140: test bomb_70
+    21300142: test bomb_71
+    21300144: test bomb_72
+    21300146: test bomb_73
+    21300148: test bomb_74
+    21300150: test bomb_75
+    21300152: test bomb_76
+    21300154: test bomb_77
+    21300156: test bomb_78
+    21300158: test bomb_79
+    21300160: test bomb_80
+    21300162: test bomb_81
+    21300164: test bomb_82
+    21300166: test bomb_83
+    21300168: test bomb_84
+    21300170: test bomb_85
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: test bomb_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 92
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95037e849d5690f47b4b5ac4f7710fe4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_1
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 92
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37db49cd323eca1459661ad01ab52862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_2
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 92
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d8b8713d460684d951a94268354b96
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_3
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 92
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0473dc52970b1c349a4a3f56bddd4a4d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_4
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 92
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab4a890fa1c5f64d8b1bca181a366c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25e3f93d78c30064896d33f25a9360f4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_6
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 0
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc58a0010ba8d6469075c8dfe0959c9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_7
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee89478d299c9a4bae692b04a6bb935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_8
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 0
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ac7da8f86b4d074fada6244d13c53e8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: test bomb_9
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 0
+        width: 91.2
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ea3704e6de3a44aa97937d9899e306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ba166562333fa124ea9f3d315171b773
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

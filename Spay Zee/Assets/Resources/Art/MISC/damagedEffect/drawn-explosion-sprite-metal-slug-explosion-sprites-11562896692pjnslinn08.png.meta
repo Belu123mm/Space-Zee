@@ -1,0 +1,414 @@
+fileFormatVersion: 2
+guid: beff8cd211420d34f8252442139e9f48
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_0
+    21300002: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_1
+    21300004: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_2
+    21300006: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_3
+    21300008: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_4
+    21300010: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_5
+    21300012: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_6
+    21300014: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_7
+    21300016: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_8
+    21300018: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_9
+    21300020: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_10
+    21300022: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_11
+    21300024: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_12
+    21300026: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_13
+    21300028: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_14
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 139
+        width: 43
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0294fcf4af98d84b83465a7dec872ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 139
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98f073ccc5c813e44a1d2140fe93b1a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_2
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 139
+        width: 48
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c3e54e84825d949921b0fa5fd8563a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_3
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 139
+        width: 49
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b853395da64a54f4f81879cd67e1a57e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_4
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 139
+        width: 49
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1528d780efcfa8449bf2bedee1b27d5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 49
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 857ce90c06c41f04c98d1ea79665de1d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_6
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 65
+        width: 50
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afa6b529e788af444af971e3ca87c967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_7
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 65
+        width: 50
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71c6d3646186f648b9b0f7250e926e6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_8
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 65
+        width: 51
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7935b287f9664241afd8e46e835f58a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_9
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 69
+        width: 49
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442d70c3263b0c74c9ee876000c2ec14
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 551e93be80d6be74c93f5ee57f35689c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_11
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 49
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 028a22e98320c3446be055f432374c19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_12
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 0
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d31ac01b5a8da246a94aa11cd15dbc1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_13
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 1
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8654e7c81d8b244caa1d2463aee6500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: drawn-explosion-sprite-metal-slug-explosion-sprites-11562896692pjnslinn08_14
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 1
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 127c44513b430dc40add7a8a9cb4a659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d6101b8be61212f49bd453751d91c216
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
