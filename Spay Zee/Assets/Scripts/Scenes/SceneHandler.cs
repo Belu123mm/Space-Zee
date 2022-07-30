@@ -25,8 +25,8 @@ public class SceneHandler : MonoBehaviour, IObserver
 
     public void Notify(string action)
     {
-        //if (action == "NextLevel")
-            //NextLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        if (action == "NextLevel")
+            NextLevel(SceneManager.GetActiveScene().buildIndex + 1);
         if (action == "Lose")
             Lose();
         if (action == "Credits")

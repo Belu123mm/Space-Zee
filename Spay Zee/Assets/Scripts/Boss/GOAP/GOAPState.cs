@@ -58,7 +58,7 @@ public class GOAPState
         var str = "";
         foreach (var kv in values.OrderBy(x => x.Key))
         {
-            str += $"{kv.Key:12} : {kv.Value}\n";
+            str += $"{kv.Key.ToString():12} : {kv.Value}\n";
         }
         return "--->" + (generatingAction != null ? generatingAction.name : "NULL") + "\n" + str;
     }

@@ -6655,7 +6655,7 @@ MonoBehaviour:
   - {fileID: 354410120}
   - {fileID: 2011325796}
   maxSpawnTime: 7.5
-  maxWaves: 5
+  maxWaves: 3
   grid: {fileID: 963932149}
 --- !u!4 &129889986
 Transform:
@@ -25838,11 +25838,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1348331355, guid: 778424b086a30674a8171171c41c45ed, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2000778436, guid: 778424b086a30674a8171171c41c45ed, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1290118606467413154, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
@@ -25899,6 +25899,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1290118607869795075, guid: 778424b086a30674a8171171c41c45ed,
+        type: 3}
+      propertyPath: maxHP
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 1290118607869795085, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
@@ -25958,7 +25963,7 @@ PrefabInstance:
     - target: {fileID: 7673466931718357556, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7673466931718357556, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}

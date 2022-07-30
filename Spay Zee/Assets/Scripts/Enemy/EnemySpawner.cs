@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
     Lookuptable<int, float> _timeToSpawn;
     
-    private void Awake()
+    private void Start()
     {
         SubscribeTo(SceneHandler.Instance);
 
@@ -35,6 +35,9 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
         AllBehaviours.Add(2, () => { return new HomingShooterEnemyBehaviour(); });
         AllBehaviours.Add(3, () => { return new ChaserEnemyHeavyBehaviour(); });
+
+        StartCoroutine(SpawnEnemies());
+
     }
 
     float TimeBetweenRounds(int w)
@@ -50,22 +53,19 @@ public class EnemySpawner : MonoBehaviour, IObservable
         return temp;
     }
 
-    void Start()
-    {
-        StartCoroutine(SpawnEnemies());
-    }
-
     IEnumerator SpawnEnemies()
     {
         _currentWave++;
 
         //COMENTAR ESTO LO HACE ENDLESS
 
-        //if (_currentWave > maxWaves)
-         //   NotifyObservers("NextLevel");
+        if (_currentWave > maxWaves)
+        {
+            NotifyObservers("NextLevel");
+        }
 
-        //if (_currentWave <= maxWaves)
-        //{
+        if (_currentWave <= maxWaves)
+        {
             foreach (var pos in enemySpawnPoints)
             {
                 var random = UnityEngine.Random.Range(0, AllBehaviours.Count);
@@ -74,7 +74,7 @@ public class EnemySpawner : MonoBehaviour, IObservable
             }
 
         //grid.Refesh();
-        //}
+        }
 
         yield return new WaitForSeconds(TimeBetweenRounds(_currentWave));
         StartCoroutine(SpawnEnemies());
@@ -82,14 +82,22 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
     public void NotifyObservers(string action)
     {
-        for (int i = _allObs.Count - 1; i >= 0; i--)
-            _allObs[i].Notify(action);
+        Debug.Log("NOTIFY");
+        Debug.Log(_allObs.Count);
+        foreach (var observ in _allObs)
+        {
+            observ.Notify(action);
+        }
     }
 
     public void SubscribeTo(IObserver observer)
     {
         if (!_allObs.Contains(observer))
+        {
             _allObs.Add(observer);
+            Debug.Log("Subscribed");
+            Debug.Log(observer);
+        }
     }
 
     public void UnSubscribeFrom(IObserver observer)
