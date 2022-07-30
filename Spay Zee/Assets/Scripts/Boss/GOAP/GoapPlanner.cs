@@ -66,8 +66,8 @@ public class GoapPlanner {
     private static float GetHeuristic(GOAPState from,  GOAPState goal) => goal.values.Count(kv => !kv.In(from.values));
     private static bool  Satisfies(GOAPState    state, GOAPState to)   => to.values.All(kv => kv.In(state.values));
 
-    private static IEnumerable<WeightedNode<GOAPState>> Explode(GOAPState node, IEnumerable<GOAPAction> actions,
-                                                                ref int   watchdog) {
+    private static IEnumerable<WeightedNode<GOAPState>> Explode(GOAPState node, IEnumerable<GOAPAction> actions, ref int   watchdog) 
+    {
         if (watchdog == 0) return Enumerable.Empty<WeightedNode<GOAPState>>();
         watchdog--;
 

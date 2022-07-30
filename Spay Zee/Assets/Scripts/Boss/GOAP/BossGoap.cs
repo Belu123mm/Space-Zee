@@ -91,57 +91,57 @@ public class BossGoap : MonoBehaviour
     private void PlanAndExecute()
     {
         var actions = new List<GOAPAction>{
-                                            new GOAPAction("Attack")                                            
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isBossAngry", true)
-                                                 .Effect("isPlayerInSight", true)       
-                                                 .Effect("isBossAngry", false)
-                                                 .LinkedState(attackState)                                                 
+                                            new GOAPAction("Attack")
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.Angry, true)
+                                                 .Effect(BossState.PlayerInSight, true)
+                                                 .Effect(BossState.Angry, false)
+                                                 .LinkedState(attackState)
                                                  .Cost(2),
 
                                              new GOAPAction("Charge")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", false)
-                                                 .Effect("isPlayerClose", true)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PlayerClose, true)
                                                  .LinkedState(chargeState)
                                                  .Cost(2),
 
                                              new GOAPAction("Push")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", true)
-                                                 .Effect("isPlayerClose", false)
-                                                 .Effect("BossPoweredUp", true)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, true)
+                                                 .Effect(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PoweredUp, true)
                                                  .LinkedState(pushPlayerState)
                                                  .Cost(1),
 
                                              new GOAPAction("Lazer")
-                                                 .Pre("LowEnergyBoss", false)
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", false)
-                                                 .Pre("BossPoweredUp", true)
-                                                 .Pre("LowHPBoss", false)
-                                                 .Effect("BossPoweredUp", false)
-                                                 .Effect("isPlayerAlive", false)
+                                                 .Pre(BossState.EnergyDown, false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, false)
+                                                 .Pre(BossState.PoweredUp, true)
+                                                 .Pre(BossState.LowHP, false)
+                                                 .Effect(BossState.PoweredUp, false)
+                                                 .Effect(BossState.PlayerAlive, false)
                                                  .Cost(5)
                                                  .LinkedState(laserAttackState),
 
                                              new GOAPAction("Invoke")
-                                                 .Pre("LowEnergyBoss", false)
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("LowHPBoss", true)
-                                                 .Pre("isBossAngry", false)
-                                                 .Effect("LowHPBoss", false)
-                                                 .Effect("isPlayerClose", false)
-                                                 .Effect("BossPoweredUp", false)
+                                                 .Pre(BossState.EnergyDown, false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.LowHP, true)
+                                                 .Pre(BossState.Angry, false)
+                                                 .Effect(BossState.LowHP, false)
+                                                 .Effect(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PoweredUp, false)
                                                  .Cost(2)
                                                  .LinkedState(invokeWaveState),
 
                                              new GOAPAction("PowerDown")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("LowEnergyBoss", true)
-                                                 .Effect("LowEnergyBoss", false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.EnergyDown, true)
+                                                 .Effect(BossState.EnergyDown, false)
                                                  .LinkedState(powerDownState),
-        };
+                                          };
 
         var planner = new GoapPlanner();
 
@@ -163,54 +163,54 @@ public class BossGoap : MonoBehaviour
 
         var actions = new List<GOAPAction>{
                                             new GOAPAction("Attack")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isBossAngry", true)
-                                                 .Effect("isPlayerInSight", true)
-                                                 .Effect("isBossAngry", false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.Angry, true)
+                                                 .Effect(BossState.PlayerInSight, true)
+                                                 .Effect(BossState.Angry, false)
                                                  .LinkedState(attackState)
                                                  .Cost(2),
 
                                              new GOAPAction("Charge")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", false)
-                                                 .Effect("isPlayerClose", true)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PlayerClose, true)
                                                  .LinkedState(chargeState)
                                                  .Cost(2),
 
                                              new GOAPAction("Push")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", true)
-                                                 .Effect("isPlayerClose", false)
-                                                 .Effect("BossPoweredUp", true)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, true)
+                                                 .Effect(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PoweredUp, true)
                                                  .LinkedState(pushPlayerState)
                                                  .Cost(1),
 
                                              new GOAPAction("Lazer")
-                                                 .Pre("LowEnergyBoss", false)
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("isPlayerClose", false)
-                                                 .Pre("BossPoweredUp", true)
-                                                 .Pre("LowHPBoss", false)
-                                                 .Effect("BossPoweredUp", false)
-                                                 .Effect("isPlayerAlive", false)
+                                                 .Pre(BossState.EnergyDown, false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerClose, false)
+                                                 .Pre(BossState.PoweredUp, true)
+                                                 .Pre(BossState.LowHP, false)
+                                                 .Effect(BossState.PoweredUp, false)
+                                                 .Effect(BossState.PlayerAlive, false)
                                                  .Cost(5)
                                                  .LinkedState(laserAttackState),
 
                                              new GOAPAction("Invoke")
-                                                 .Pre("LowEnergyBoss", false)
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("LowHPBoss", true)
-                                                 .Pre("isBossAngry", false)
-                                                 .Effect("LowHPBoss", false)
-                                                 .Effect("isPlayerClose", false)
-                                                 .Effect("BossPoweredUp", false)
+                                                 .Pre(BossState.EnergyDown, false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.LowHP, true)
+                                                 .Pre(BossState.Angry, false)
+                                                 .Effect(BossState.LowHP, false)
+                                                 .Effect(BossState.PlayerClose, false)
+                                                 .Effect(BossState.PoweredUp, false)
                                                  .Cost(2)
                                                  .LinkedState(invokeWaveState),
 
                                              new GOAPAction("PowerDown")
-                                                 .Pre("isPlayerAlive", true)
-                                                 .Pre("LowEnergyBoss", true)
-                                                 .Effect("LowEnergyBoss", false)
+                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.EnergyDown, true)
+                                                 .Effect(BossState.EnergyDown, false)
                                                  .LinkedState(powerDownState),
                                           };
 
@@ -228,4 +228,14 @@ public class BossGoap : MonoBehaviour
         _fsm.Active = true;
     }
 
+}
+public enum BossState
+{
+    PlayerAlive,
+    Angry,
+    PlayerInSight, 
+    PlayerClose,
+    PoweredUp,
+    EnergyDown,
+    LowHP
 }

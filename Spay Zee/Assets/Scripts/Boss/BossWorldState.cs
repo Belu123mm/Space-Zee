@@ -30,12 +30,12 @@ public class BossWorldState : MonoBehaviour
     public GOAPState GetWorldState()
     {
         var from = new GOAPState();
-        from.values["isPlayerClose"] = IsPlayerClose();
-        from.values["BossPoweredUp"] = IsBossPowerUp;
-        from.values["isPlayerAlive"] = true;
-        from.values["LowHPBoss"] = CheckBossLife();
-        from.values["LowEnergyBoss"] = CheckBossEnergy();
-        from.values["isBossAngry"] = IsTheBossMad();
+        from.values[BossState.PlayerClose] = IsPlayerClose();
+        from.values[BossState.PoweredUp] = IsBossPowerUp;
+        from.values[BossState.PlayerAlive] = true;
+        from.values[BossState.LowHP] = CheckBossLife();
+        from.values[BossState.EnergyDown] = CheckBossEnergy();
+        from.values[BossState.Angry] = IsTheBossMad();
 
         return from;
     }
@@ -43,10 +43,10 @@ public class BossWorldState : MonoBehaviour
     public GOAPState GetObjectiveState()
     {
         var to = new GOAPState();
-        to.values["isPlayerAlive"] = false;
-        to.values["LowHPBoss"] = false;
-        to.values["LowEnergyBoss"] = false;
-        to.values["isBossAngry"] = false;
+        to.values[BossState.PlayerAlive] = false;
+        to.values[BossState.LowHP] = false;
+        to.values[BossState.EnergyDown] = false;
+        to.values[BossState.Angry] = false;
 
 
         return to;
