@@ -13,7 +13,22 @@ public class Boss : MonoBehaviour
     public GameObject explosion;
     bool isDead;
     float feedbackTimer;
+
+    public Transform playerPosition;
+    public float closeDistance { get; private set; }
+    public bool IsBossPowerUp { get; private set; }
+
+    public int invokeStateStarter;
+
     
+
+
+    private void Awake()
+    {
+        closeDistance = 0.60f;
+
+        invokeStateStarter = 50;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,4 +59,18 @@ public class Boss : MonoBehaviour
             SceneManager.LoadScene("Menu");
         }
     }
+
+    public void SetPowerUpBoss(bool value)
+    {
+        IsBossPowerUp = value;
+    }
+
+    public bool IsTheBossMad() => damageTaken >= 25;
+
+    public bool IsPlayerClose() => Vector2.Distance(playerPosition.position, transform.position) < closeDistance;
+
+    public bool CheckBossLife() => life <= invokeStateStarter;
+
+    public bool CheckBossEnergy() => powerCounter >= 3;
 }
+

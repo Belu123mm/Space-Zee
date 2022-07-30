@@ -14,10 +14,13 @@ public class MeleeAttackState : MonoBaseState {
 
     private float _lastAttackTime;
 
-
-    private void Awake() {
-        _player = FindObjectOfType<Model>();
+    Boss boss;
+    public MeleeAttackState(Boss _boss, Model player)
+    {
+        boss = _boss;
+        _player = player;
     }
+
 
     public override void UpdateLoop() {
         if (Time.time >= _lastAttackTime + attackRate) {
@@ -25,7 +28,7 @@ public class MeleeAttackState : MonoBaseState {
             Debug.Log("Ataco");
         }
         
-        var sqrDistance = (_player.transform.position - transform.position).sqrMagnitude;
+        var sqrDistance = (_player.transform.position - boss.transform.position).sqrMagnitude;
         
         if (sqrDistance > maxDistance * maxDistance) {
             OnNeedsReplan?.Invoke();

@@ -11,20 +11,23 @@ public class PushPlayerState : MonoBaseState
     private Animator ShieldAnimator;
     private Rigidbody ShieldBody;
 
-    public Model _player;
+    Model _player;
     
     float timer = 0;
     int invokeCounter;
     bool start;
     public override event Action OnNeedsReplan;
 
-
-    private void Awake()
+    Boss boss;
+    public PushPlayerState(Boss _boss, Model player)
     {
-        Shield = (GameObject)Instantiate(Resources.Load("Art/MISC/shieldEffect/BossShield", typeof(Object)));
-        Shield.transform.SetParent(this.transform);
-        Shield.transform.position = this.transform.position;
-        Shield.transform.rotation = this.transform.rotation;
+        boss = _boss;
+        _player = player;
+
+        Shield = (GameObject)GameObject.Instantiate(Resources.Load("Art/MISC/shieldEffect/BossShield", typeof(Object)));
+        Shield.transform.SetParent(boss.transform);
+        Shield.transform.position = boss.transform.position;
+        Shield.transform.rotation = boss.transform.rotation;
         ShieldBody= Shield.GetComponent<Rigidbody>();
         ShieldAnimator = Shield.GetComponent<Animator>();
     }
@@ -36,31 +39,28 @@ public class PushPlayerState : MonoBaseState
             ShieldAnimator.Play("push");
 
             Vector3 lookAtPos = _player.transform.position;
-            lookAtPos.z = transform.position.z;
-            transform.up = lookAtPos - transform.position;
+            lookAtPos.z = boss.transform.position.z;
+            boss.transform.up = lookAtPos - boss.transform.position;
 
-            if (!BossWorldState.instance.CheckBossLife() && BossWorldState.instance.CheckBossEnergy())
+            if (!boss.CheckBossLife() && boss.CheckBossEnergy())
             {
                 start = false;
                 timer = 0;
                 OnNeedsReplan?.Invoke();
             }
         }
-    }
-
-    private void Update()
-    {
+  
         if (start)
         {
             timer += Time.deltaTime;
 
-            transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, Time.deltaTime);
+            boss.transform.position = Vector3.MoveTowards(boss.transform.position, _player.transform.position, Time.deltaTime);
         }           
     }
 
     public override IState ProcessInput()
     {
-        if (timer >= 4 && invokeCounter <= 2 && BossWorldState.instance.CheckBossLife()/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
+        if (timer >= 4 && invokeCounter <= 2 && boss.CheckBossLife()/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
         {
             timer = 0;
             start = false;
@@ -86,7 +86,7 @@ public class PushPlayerState : MonoBaseState
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-        BossWorldState.instance.SetPowerUpBoss(true);
+        boss.SetPowerUpBoss(true);
         start = true;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FSM {
 
-    public abstract class MonoBaseState : MonoBehaviour, IState {
+    public abstract class MonoBaseState : IState {
 
         public virtual event Action     OnNeedsReplan;
         public virtual event StateEvent OnEnter;

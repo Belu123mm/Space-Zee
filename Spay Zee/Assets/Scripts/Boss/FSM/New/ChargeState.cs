@@ -6,10 +6,11 @@ using System;
 
 public class ChargeState : MonoBaseState
 {
-    private Model _player;
+    Boss boss;
+    Model _player;
 
-    public GameObject warning;
-    public GameObject triggerCollider;
+    GameObject warning;
+    GameObject triggerCollider;
 
     int counter; 
     float timer;
@@ -18,18 +19,21 @@ public class ChargeState : MonoBaseState
 
     Vector3 location;
 
-    private void Awake()
+    public ChargeState(Boss _boss, Model player, GameObject _warning, GameObject _triggerCollider)
     {
-        _player = FindObjectOfType<Model>();
-    }
+        boss = _boss;
+        _player = player;
+        warning = _warning;
+        triggerCollider = _triggerCollider;
+    } 
 
     public override void UpdateLoop()
     {
         if(start)
         {
             Vector3 lookAtPos = _player.transform.position;
-            lookAtPos.z = transform.position.z;
-            transform.up = lookAtPos - transform.position;
+            lookAtPos.z = boss.transform.position.z;
+            boss.transform.up = lookAtPos - boss.transform.position;
 
             if (timer >= 2f)
             {
@@ -49,18 +53,15 @@ public class ChargeState : MonoBaseState
         if (counter >= 4)
         {
             warning.SetActive(false);
-        }         
-    }
+        }
 
-    private void Update()
-    {
         if (start)
         {
             timer += Time.deltaTime;
 
             if (hasLocation)
             {
-                transform.position = Vector3.MoveTowards(transform.position, location, Time.deltaTime * 20);
+                boss.transform.position = Vector3.MoveTowards(boss.transform.position, location, Time.deltaTime * 20);
             }
         }
     }
@@ -73,7 +74,7 @@ public class ChargeState : MonoBaseState
 
     public override IState ProcessInput()
     {
-        if (BossWorldState.instance.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
+        if (boss.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
         {
             triggerCollider.SetActive(false);
             return Transitions["OnPushPlayerState"];

@@ -8,26 +8,28 @@ public class PowerDownState : MonoBaseState
 {
     public GameObject objective;
     public GameObject batery;
-    public Boss boss;
+    Boss boss;
 
     bool start;   
     float reloadTimer;
 
     public override event Action OnNeedsReplan;
 
+    public PowerDownState(GameObject _objective, GameObject _batery, Boss _boss)
+    {
+        boss = _boss;
+        objective = _objective;
+        batery = _batery;
+    }
     public override void UpdateLoop() 
     {
-
-    }
-     void Update()
-     {
         if (start)
         {
             reloadTimer += Time.deltaTime;
 
             batery.SetActive(true);
 
-            transform.position = Vector3.MoveTowards(transform.position, objective.transform.position, Time.deltaTime * 2);
+            boss.transform.position = Vector3.MoveTowards(boss.transform.position, objective.transform.position, Time.deltaTime * 2);
         }      
      }
     public override IState ProcessInput()

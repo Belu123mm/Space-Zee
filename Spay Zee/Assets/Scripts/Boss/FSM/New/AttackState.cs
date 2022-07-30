@@ -6,18 +6,23 @@ using System;
 
 public class AttackState : MonoBaseState
 {
-    public GameObject position;
-    public List<Transform> canons;
+    Boss boss;
+    GameObject position;
+    List<Transform> canons;
     float timeToShoot = 0.1f;
     float bulletsTimer;
     float stateTimer;
 
-    public Boss boss;
-
     bool start;
 
     public override event Action OnNeedsReplan;
-    
+
+    public AttackState(Boss _boss, GameObject _position, List<Transform> _canons)
+    {
+        boss = _boss;
+        position = _position;
+        canons = _canons;    
+    }
     public override void UpdateLoop() 
     {
         if (start)
@@ -31,15 +36,13 @@ public class AttackState : MonoBaseState
                 bulletsTimer = 0;
             }
         }
-    }
 
-    private void Update()
-    {
+
         if (start)
         {
             bulletsTimer += Time.deltaTime;
             stateTimer += Time.deltaTime;
-            transform.Rotate(0, 0, 10 * Time.deltaTime * 20);
+            boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);
         }
     }
 

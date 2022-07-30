@@ -6,11 +6,10 @@ using System;
 
 public class LaserAttackState : MonoBaseState
 {
-    public GameObject objective;
-    public GameObject forwardLazer;
-    public GameObject redLazer;
-
-    public Boss boss;
+    Boss boss;
+    GameObject objective;
+    GameObject forwardLazer;
+    GameObject redLaser;
 
     public override event Action OnNeedsReplan;
 
@@ -19,57 +18,58 @@ public class LaserAttackState : MonoBaseState
 
     float timer;
 
-    private void Awake()
+    public LaserAttackState(Boss _boss, GameObject _objective, GameObject _forwardLazer, GameObject _redLaser)
     {
+        boss = _boss;
+        objective = _objective;
+        forwardLazer = _forwardLazer;
+        redLaser = _redLaser;
         inPosition = false;
-    }
-
-    public void Update()
-    {
-        if (start)
-            timer += Time.deltaTime;
-    }
+    }    
 
     public override void UpdateLoop()
     {
+        if (start)
+            timer += Time.deltaTime;
+
         if (start == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, objective.transform.position, Time.deltaTime * 10);
+            boss.transform.position = Vector3.MoveTowards(boss.transform.position, objective.transform.position, Time.deltaTime * 10);
 
             if (inPosition == false)
             {
                 Vector3 lookAtPos = objective.transform.position;
-                lookAtPos.z = transform.position.z;
-                transform.up = lookAtPos - transform.position;
+                lookAtPos.z = boss.transform.position.z;
+                boss.transform.up = lookAtPos - boss.transform.position;
             }
 
-            if (transform.position == objective.transform.position)
+            if (boss.transform.position == objective.transform.position)
             {
                 inPosition = true;
                 forwardLazer.SetActive(true);
 
                 Vector3 lookAtPos = forwardLazer.transform.position;
-                lookAtPos.z = transform.position.z;
-                transform.up = lookAtPos - transform.position;
+                lookAtPos.z = boss.transform.position.z;
+                boss.transform.up = lookAtPos - boss.transform.position;
             }
         }
 
         if (timer >= 4f)
-            redLazer.SetActive(true);
+            redLaser.SetActive(true);
 
         if (timer >= 5.5f)
-            redLazer.SetActive(false);
+            redLaser.SetActive(false);
     }
 
     public override IState ProcessInput()
     {
-        if (timer >= 6.30f && BossWorldState.instance.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
+        if (timer >= 6.30f && boss.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
         {
             boss.powerCounter++;
             timer = 0;
             start = false;
             forwardLazer.SetActive(false);
-            BossWorldState.instance.SetPowerUpBoss(false);
+            boss.SetPowerUpBoss(false);
             OnNeedsReplan?.Invoke();
             return Transitions["OnPushPlayerState"];
         }
@@ -80,7 +80,7 @@ public class LaserAttackState : MonoBaseState
             timer = 0;
             start = false;
             forwardLazer.SetActive(false);
-            BossWorldState.instance.SetPowerUpBoss(false);
+            boss.SetPowerUpBoss(false);
             OnNeedsReplan?.Invoke();
         }
         return this;

@@ -10,20 +10,21 @@ public class ChaseState : MonoBaseState {
     public float meleeDistance = 1.5f;
     
     private Model _player;
-    
-    
-    private void Awake() {
-        _player = FindObjectOfType<Model>();
+    Boss boss;
+
+    public ChaseState(Model player, Boss _boss)
+    {
+        _player = player;
     }
-
+    
     public override void UpdateLoop() {
-        var dir = (_player.transform.position - transform.position).normalized;
+        var dir = (_player.transform.position - boss.transform.position).normalized;
 
-        transform.position += dir * (speed * Time.deltaTime);
+        boss.transform.position += dir * (speed * Time.deltaTime);
     }
 
     public override IState ProcessInput() {
-        var sqrDistance = (_player.transform.position - transform.position).sqrMagnitude;
+        var sqrDistance = (_player.transform.position - boss.transform.position).sqrMagnitude;
         
         if (sqrDistance < meleeDistance * meleeDistance && Transitions.ContainsKey("OnMeleeAttackState")) {
             return Transitions["OnMeleeAttackState"];
