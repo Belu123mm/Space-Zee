@@ -71,7 +71,7 @@ public class GoapPlanner {
         if (watchdog == 0) return Enumerable.Empty<WeightedNode<GOAPState>>();
         watchdog--;
 
-        return actions.Where(action => action.preconditions.All(kv => kv.In(node.values)))
+        return actions.Where(action => action.preconditionsLambdas.All(kv => kv.In(node.values)))
                       .Aggregate(new List<WeightedNode<GOAPState>>(), (possibleList, action) => {
                            var newState = new GOAPState(node);
                            newState.values.UpdateWith(action.effects);

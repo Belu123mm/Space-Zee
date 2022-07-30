@@ -9,6 +9,7 @@ public class Model : MonoBehaviour, Ishootable, IPickuper, IObservable
     Icontroller _myController;
 
     public int maxHP;
+    public int CurrentHP => _currentHP;
     int _currentHP;
 
     int _indexBehaviour = 1;

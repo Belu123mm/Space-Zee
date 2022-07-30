@@ -83,7 +83,7 @@ public class BossGoap : MonoBehaviour
     {
         var actions = new List<GOAPAction>{
                                             new GOAPAction("Attack")
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(x=> (int)x[BossState.PlayerLife] >= 0)
                                                  .Pre(BossState.Angry, true)
                                                  .Effect(BossState.PlayerInSight, true)
                                                  .Effect(BossState.Angry, false)
@@ -91,14 +91,14 @@ public class BossGoap : MonoBehaviour
                                                  .Cost(2),
 
                                              new GOAPAction("Charge")
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerLife, true)
                                                  .Pre(BossState.PlayerClose, false)
                                                  .Effect(BossState.PlayerClose, true)
                                                  .LinkedState(chargeState)
                                                  .Cost(2),
 
                                              new GOAPAction("Push")
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerLife, true)
                                                  .Pre(BossState.PlayerClose, true)
                                                  .Effect(BossState.PlayerClose, false)
                                                  .Effect(BossState.PoweredUp, true)
@@ -107,18 +107,18 @@ public class BossGoap : MonoBehaviour
 
                                              new GOAPAction("Lazer")
                                                  .Pre(BossState.EnergyDown, false)
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerLife, true)
                                                  .Pre(BossState.PlayerClose, false)
                                                  .Pre(BossState.PoweredUp, true)
                                                  .Pre(BossState.LowHP, false)
                                                  .Effect(BossState.PoweredUp, false)
-                                                 .Effect(BossState.PlayerAlive, false)
+                                                 .Effect(x => x[BossState.PlayerLife] = (int)x[BossState.PlayerLife] - 10)
                                                  .Cost(5)
                                                  .LinkedState(laserAttackState),
 
                                              new GOAPAction("Invoke")
                                                  .Pre(BossState.EnergyDown, false)
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerLife, true)
                                                  .Pre(BossState.LowHP, true)
                                                  .Pre(BossState.Angry, false)
                                                  .Effect(BossState.LowHP, false)
@@ -128,7 +128,7 @@ public class BossGoap : MonoBehaviour
                                                  .LinkedState(invokeWaveState),
 
                                              new GOAPAction("PowerDown")
-                                                 .Pre(BossState.PlayerAlive, true)
+                                                 .Pre(BossState.PlayerLife, true)
                                                  .Pre(BossState.EnergyDown, true)
                                                  .Effect(BossState.EnergyDown, false)
                                                  .LinkedState(powerDownState),
@@ -138,14 +138,14 @@ public class BossGoap : MonoBehaviour
 
         from.values[BossState.PlayerClose] = boss.IsPlayerClose();
         from.values[BossState.PoweredUp] = boss.IsBossPowerUp;
-        from.values[BossState.PlayerAlive] = true;
+        from.values[BossState.PlayerLife] = player.CurrentHP;
         from.values[BossState.LowHP] = boss.CheckBossLife();
         from.values[BossState.EnergyDown] = boss.CheckBossEnergy();
         from.values[BossState.Angry] = boss.IsTheBossMad();
 
         GOAPState to = new GOAPState();
 
-        to.values[BossState.PlayerAlive] = false;
+        to.values[BossState.PlayerLife] = 0;
         to.values[BossState.LowHP] = false;
         to.values[BossState.EnergyDown] = false;
         to.values[BossState.Angry] = false;
@@ -182,7 +182,7 @@ public class BossGoap : MonoBehaviour
 }
 public enum BossState
 {
-    PlayerAlive,
+    PlayerLife,
     Angry,
     PlayerInSight,
     PlayerClose,

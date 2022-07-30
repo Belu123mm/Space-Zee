@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FSM;
 using UnityEngine;
 
 public class GOAPAction {
 
-    public Dictionary<BossState, object> preconditions { get; private set; }
-    public Dictionary<BossState, object> effects       { get; private set; }
+    public List<Func<Dictionary<BossState, object>, bool>> preconditionsLambdas { get; private set; }
+    public List<Action<Dictionary<BossState, object>>> effectsLambdas       { get; private set; }
     public string                   name          { get; private set; }
     public float                    cost          { get; private set; }
     public IState                   linkedState   { get; private set; }
@@ -14,8 +15,8 @@ public class GOAPAction {
     public GOAPAction(string name) {
         this.name     = name;
         cost          = 1f;
-        preconditions = new Dictionary<BossState, object>();
-        effects       = new Dictionary<BossState, object>();
+        preconditionsLambdas = new List<Func<Dictionary<BossState, object>, bool>>();
+        effectsLambdas       = new List<Action<Dictionary<BossState, object>>>();
     }
 
     public GOAPAction Cost(float cost) {
@@ -29,13 +30,13 @@ public class GOAPAction {
         return this;
     }
 
-    public GOAPAction Pre(BossState s, bool value) {
-        preconditions[s] = value;
+    public GOAPAction Pre(Func<Dictionary<BossState,object>,bool> lambda) {
+        preconditionsLambdas.Add(lambda);
         return this;
     }
 
-    public GOAPAction Effect(BossState s, bool value) {
-        effects[s] = value;
+    public GOAPAction Effect(Action<Dictionary<BossState, object>> lambda) {
+        effectsLambdas.Add(lambda);
         return this;
     }
 
