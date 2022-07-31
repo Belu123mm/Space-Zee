@@ -42,7 +42,7 @@ public class PushPlayerState : MonoBaseState
             lookAtPos.z = boss.transform.position.z;
             boss.transform.up = lookAtPos - boss.transform.position;
 
-            if (!boss.CheckBossLife() && boss.CheckBossEnergy())
+            if (boss.CheckBossLife() >= 50 && boss.CheckOverheating()>= 3)
             {
                 start = false;
                 timer = 0;
@@ -60,7 +60,7 @@ public class PushPlayerState : MonoBaseState
 
     public override IState ProcessInput()
     {
-        if (timer >= 4 && invokeCounter <= 2 && boss.CheckBossLife()/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
+        if (timer >= 4 && invokeCounter <= 2 && boss.CheckBossLife() <= 50/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
         {
             timer = 0;
             start = false;
@@ -86,7 +86,6 @@ public class PushPlayerState : MonoBaseState
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-        boss.SetPowerUpBoss(true);
         start = true;
     }
 }

@@ -23,6 +23,7 @@ public class GoapPlanner {
                 node => Explode(node, actions, ref _watchdog),
                 state => GetHeuristic(state, to),
                 x => call = x));
+            Debug.Log(_watchdog);
             Debug.Log(call);
             return CalculateGoap(call);
         }
@@ -71,10 +72,10 @@ public class GoapPlanner {
         if (watchdog == 0) return Enumerable.Empty<WeightedNode<GOAPState>>();
         watchdog--;
 
-        return actions.Where(action => action.preconditionsLambdas.All(kv => kv.In(node.values)))
+        return actions.Where(action => action.preconditionsLambdas.All(kv => kv.Invoke(node.values)))
                       .Aggregate(new List<WeightedNode<GOAPState>>(), (possibleList, action) => {
                            var newState = new GOAPState(node);
-                           newState.values.UpdateWith(action.effects);
+                           for (int i = 0; i < action.effectsLambdas.Count; i++) action.effectsLambdas[i](newState.values);
                            newState.generatingAction = action;
                            newState.step             = node.step + 1;
 

@@ -7,7 +7,7 @@ public class Boss : MonoBehaviour
 {
     public float life;
     public float damageTaken;
-    public int powerCounter;
+    public int overheatingCounter;
 
     public BossGoap goap;
     public GameObject explosion;
@@ -16,10 +16,10 @@ public class Boss : MonoBehaviour
 
     public Transform playerPosition;
     public float closeDistance { get; private set; }
-    public bool IsBossPowerUp { get; private set; }
 
     public int invokeStateStarter;
 
+    public BossMood Mood;
     
 
 
@@ -28,6 +28,7 @@ public class Boss : MonoBehaviour
         closeDistance = 0.60f;
 
         invokeStateStarter = 50;
+        Mood = BossMood.Calm;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -60,17 +61,10 @@ public class Boss : MonoBehaviour
         }
     }
 
-    public void SetPowerUpBoss(bool value)
-    {
-        IsBossPowerUp = value;
-    }
-
-    public bool IsTheBossMad() => damageTaken >= 25;
-
     public bool IsPlayerClose() => Vector2.Distance(playerPosition.position, transform.position) < closeDistance;
 
-    public bool CheckBossLife() => life <= invokeStateStarter;
+    public float CheckBossLife() => life;
 
-    public bool CheckBossEnergy() => powerCounter >= 3;
+    public int CheckOverheating() => overheatingCounter;
 }
 

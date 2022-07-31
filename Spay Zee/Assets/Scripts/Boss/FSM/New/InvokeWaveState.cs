@@ -107,12 +107,12 @@ public class InvokeWaveState : MonoBaseState
             timer = 0;
             invokeReEnterCounter = 0;
             boss.invokeStateStarter -= 15;
-            boss.powerCounter++;
+            boss.overheatingCounter++;
             return Transitions["OnChargeState"];
         }
         else if (timer >= 8)
         {
-            boss.powerCounter++;
+            boss.overheatingCounter++;
             invokeReEnterCounter++;
             InPosition = false;
             Hiden = false;

@@ -65,27 +65,26 @@ public class LaserAttackState : MonoBaseState
     {
         if (timer >= 6.30f && boss.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
         {
-            boss.powerCounter++;
-            timer = 0;
-            start = false;
-            forwardLazer.SetActive(false);
-            boss.SetPowerUpBoss(false);
-            OnNeedsReplan?.Invoke();
+            OnProcessInput();
             return Transitions["OnPushPlayerState"];
         }
 
         if (timer >= 6.35f)
         {
-            boss.powerCounter++;
-            timer = 0;
-            start = false;
-            forwardLazer.SetActive(false);
-            boss.SetPowerUpBoss(false);
-            OnNeedsReplan?.Invoke();
+            OnProcessInput();
         }
         return this;
     }
 
+    private void OnProcessInput()
+    {
+        boss.overheatingCounter++;
+        timer = 0;
+        start = false;
+        forwardLazer.SetActive(false);
+        boss.Mood = BossMood.Angry;
+        OnNeedsReplan?.Invoke();
+    }
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
          timer = 0;

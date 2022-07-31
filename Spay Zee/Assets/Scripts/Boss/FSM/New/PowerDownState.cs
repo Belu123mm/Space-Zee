@@ -39,7 +39,7 @@ public class PowerDownState : MonoBaseState
             batery.SetActive(false);
             start = false;
             reloadTimer = 0;
-            boss.powerCounter = 0;
+            boss.overheatingCounter = 0;
             return Transitions["OnChargeState"];
         }
         else if (reloadTimer >= 6 && Transitions.ContainsKey("OnInvokeWaveState"))
@@ -47,7 +47,7 @@ public class PowerDownState : MonoBaseState
             batery.SetActive(false);
             start = false;
             reloadTimer = 0;
-            boss.powerCounter = 0;
+            boss.overheatingCounter = 0;
             OnNeedsReplan?.Invoke();
             return Transitions["OnInvokeWaveState"];
         }
@@ -56,7 +56,7 @@ public class PowerDownState : MonoBaseState
             batery.SetActive(false);
             start = false;
             reloadTimer = 0;
-            boss.powerCounter = 0;
+            boss.overheatingCounter = 0;
             OnNeedsReplan?.Invoke();
         }
 
