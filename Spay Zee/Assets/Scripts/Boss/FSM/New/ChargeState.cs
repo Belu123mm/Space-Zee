@@ -19,6 +19,8 @@ public class ChargeState : MonoBaseState
 
     Vector3 location;
 
+    public override event Action OnNeedsReplan;
+
     public ChargeState(Boss _boss, Model player, GameObject _warning, GameObject _triggerCollider)
     {
         boss = _boss;
@@ -79,6 +81,9 @@ public class ChargeState : MonoBaseState
             triggerCollider.SetActive(false);
             return Transitions["OnPushPlayerState"];
         }
+
+        if(timer >= 3f)
+            OnNeedsReplan?.Invoke();
 
         return this;
     }

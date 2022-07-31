@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GoapPlanner {
     
-    private const int _WATCHDOG_MAX = 200;
+    private const int _WATCHDOG_MAX = 2000;
     private int _watchdog;
 
     public IEnumerable<GOAPAction> Run(GOAPState from, GOAPState to, IEnumerable<GOAPAction> actions, bool RunCoroutine, MonoBehaviour mono) {
