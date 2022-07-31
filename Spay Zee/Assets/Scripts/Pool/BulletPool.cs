@@ -33,11 +33,12 @@ public class BulletPool : MonoBehaviour
         _bulletPool.ReturnObject(B);
     }
 
-    public Bullet SpawnBullet(Vector3 position, Vector3 rotation)
+    public Bullet SpawnBullet(Vector3 position, Vector3 rotation, int layer)
     {
         var b = _bulletPool.GetObject();
         b.transform.position = position;
         b.transform.localEulerAngles = rotation;
+        b.gameObject.layer = layer;
         return b;
     }
 }

@@ -59,7 +59,7 @@ public class HomingShooterEnemyBehaviour : EnemyBehaviour
         if (_canShoot)
         {
             _myBullet = new EnemyHomingBullet();
-            BulletPool.instance.SpawnBullet(_owner.transform.position, _owner.transform.localEulerAngles).SetBehaviour(_myBullet);
+            BulletPool.instance.SpawnBullet(_owner.transform.position, _owner.transform.localEulerAngles,12).SetBehaviour(_myBullet);
             _canShoot = false;
             _owner.StartCoroutine(ShootAgain(_myBullet.GetFireRate()));
         }

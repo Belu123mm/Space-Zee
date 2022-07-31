@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Boss : MonoBehaviour
 {
     public float life;
-    public float damageTaken;
     public int overheatingCounter;
 
     public BossGoap goap;
@@ -36,7 +35,6 @@ public class Boss : MonoBehaviour
         if (collision.gameObject.layer == (10))
         {
             life--;
-            damageTaken++;
         }
     }
 

@@ -40,7 +40,8 @@ public class GoapPlanner {
     
     private IEnumerable<GOAPAction> CalculateGoap(IEnumerable<GOAPState> sequence) {
 
-        foreach (var act in sequence.Skip(1)) {
+        foreach (var act in sequence.Skip(1))
+        {
             Debug.Log(act);
         }
 

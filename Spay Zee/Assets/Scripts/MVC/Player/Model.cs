@@ -119,12 +119,12 @@ public class Model : MonoBehaviour, Ishootable, IPickuper, IObservable
             else
                 _shootIndex++;
 
-            BulletPool.instance.SpawnBullet(ShootPositions[_shootIndex].position, transform.localEulerAngles).SetBehaviour(AllBehaviours[_indexBehaviour]());
+            BulletPool.instance.SpawnBullet(ShootPositions[_shootIndex].position, transform.localEulerAngles,10).SetBehaviour(AllBehaviours[_indexBehaviour]());
             if (_multiShot)
             {
                 foreach (var item in MultiShotPositions)
                 {
-                    BulletPool.instance.SpawnBullet(item.position, item.eulerAngles).SetBehaviour(AllBehaviours[_indexBehaviour]());
+                    BulletPool.instance.SpawnBullet(item.position, item.eulerAngles,10).SetBehaviour(AllBehaviours[_indexBehaviour]());
                 }
             }
             canShoot = false;

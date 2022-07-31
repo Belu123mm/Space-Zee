@@ -61,7 +61,7 @@ public class ShooterEnemyBehaviour : EnemyBehaviour
         if (_canShoot)
         {
             _myBulletBehaviour = new EnemyLinearBullet();
-            BulletPool.instance.SpawnBullet(_owner.transform.position, _owner.transform.localEulerAngles).SetBehaviour(_myBulletBehaviour);
+            BulletPool.instance.SpawnBullet(_owner.transform.position, _owner.transform.localEulerAngles,12).SetBehaviour(_myBulletBehaviour);
             _canShoot = false;
             _owner.StartCoroutine(ShootAgain(_myBulletBehaviour.GetFireRate()));
         }

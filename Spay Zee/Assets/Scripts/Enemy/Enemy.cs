@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour, Ishootable , IGridEntity
     private void OnCollisionEnter2D(Collision2D coll)
     {
         var temp = coll.gameObject.GetComponent<Ishootable>();
-        if (temp != null && coll.gameObject.layer == _MyBehaviour.GetTarget())
+        if (temp != null && coll.gameObject.layer == 10)
             temp.GetHit(_MyBehaviour.GetDmg());
     }
 

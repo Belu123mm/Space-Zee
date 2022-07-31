@@ -86,6 +86,8 @@ public class ChargeState : MonoBaseState
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
         start = true;
+
+        base.Enter(from);
     }
 
     public override Dictionary<string, object> Exit(IState to) 

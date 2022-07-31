@@ -13,7 +13,6 @@ public class AttackState : MonoBaseState
     float bulletsTimer;
     float stateTimer;
 
-    bool start;
 
     public override event Action OnNeedsReplan;
 
@@ -25,8 +24,6 @@ public class AttackState : MonoBaseState
     }
     public override void UpdateLoop() 
     {
-        if (start)
-        {
             if (bulletsTimer > timeToShoot)
             {
                 foreach (var t in canons)
@@ -34,34 +31,22 @@ public class AttackState : MonoBaseState
                     Shoot(t);
                 }
                 bulletsTimer = 0;
-            }
-        }
+            }        
 
-
-        if (start)
-        {
             bulletsTimer += Time.deltaTime;
             stateTimer += Time.deltaTime;
-            boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);
-        }
+            boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);        
     }
 
     public void Shoot(Transform t)
     {
-        BulletPool.instance.SpawnBullet(t.position,t.parent.parent.localEulerAngles).SetBehaviour(new EnemyLinearBullet());
+        BulletPool.instance.SpawnBullet(t.position,t.parent.parent.localEulerAngles, 12).SetBehaviour(new EnemyLinearBullet());
     }
 
     public override IState ProcessInput() 
     {
-        if (stateTimer >= 5 && Transitions.ContainsKey("OnInvokeWaveState")){
-            return Transitions["OnInvokeWaveState"];
-        }
-        else if (stateTimer >= 6)
+        if (stateTimer >= 6)
         {
-            boss.damageTaken = 0;
-            start = false;
-            stateTimer = 0;
-            bulletsTimer = 0;
             OnNeedsReplan?.Invoke();
         }
             return this;
@@ -69,16 +54,14 @@ public class AttackState : MonoBaseState
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-        start = true;
         stateTimer = 0;
         bulletsTimer = 0;
         Debug.Log("entro a attack");
+        base.Enter(from);
     }
 
     public override Dictionary<string, object> Exit(IState to)
     {
-        boss.damageTaken = 0;
-        start = false;
         stateTimer = 0;
         bulletsTimer = 0;
         return base.Exit(to);
