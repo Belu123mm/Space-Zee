@@ -45,7 +45,7 @@ public class AttackState : MonoBaseState
 
     public override IState ProcessInput() 
     {
-        if (stateTimer >= 6)
+        if (stateTimer >= 2)
         {
             OnNeedsReplan?.Invoke();
         }
