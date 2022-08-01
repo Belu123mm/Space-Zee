@@ -3,7 +3,7 @@ using System.Linq;
 
 public class GOAPState
 {
-    public Dictionary<BossState, object> values = new Dictionary<BossState, object>();
+    public Dictionary<BossState, object> valuesDictionary = new Dictionary<BossState, object>();
     public GOAPAction generatingAction = null;
     public int step = 0;
 
@@ -15,12 +15,12 @@ public class GOAPState
 
     public GOAPState(GOAPState source, GOAPAction gen = null)
     {
-        foreach (var elem in source.values)
+        foreach (var elem in source.valuesDictionary)
         {
-            if (values.ContainsKey(elem.Key))
-                values[elem.Key] = elem.Value;
+            if (valuesDictionary.ContainsKey(elem.Key))
+                valuesDictionary[elem.Key] = elem.Value;
             else
-                values.Add(elem.Key, elem.Value);
+                valuesDictionary.Add(elem.Key, elem.Value);
         }
         generatingAction = gen;
     }
@@ -32,8 +32,8 @@ public class GOAPState
         var result =
             other != null
             && other.generatingAction == generatingAction       //Very important to keep! TODO: REVIEW
-            && other.values.Count == values.Count
-            && other.values.All(kv => kv.In(values));
+            && other.valuesDictionary.Count == valuesDictionary.Count
+            && other.valuesDictionary.All(kv => kv.In(valuesDictionary));
         //&& other.values.All(kv => values.Contains(kv));
         return result;
     }
@@ -50,13 +50,13 @@ public class GOAPState
         //return hashCode;
 
         //Heuristic count+first value hash multiplied by polynomial primes
-        return values.Count == 0 ? 0 : 31 * values.Count + 31 * 31 * values.First().GetHashCode();
+        return valuesDictionary.Count == 0 ? 0 : 31 * valuesDictionary.Count + 31 * 31 * valuesDictionary.First().GetHashCode();
     }
 
     public override string ToString()
     {
         var str = "";
-        foreach (var kv in values.OrderBy(x => x.Key))
+        foreach (var kv in valuesDictionary.OrderBy(x => x.Key))
         {
             str += $"{kv.Key.ToString():12} : {kv.Value}\n";
         }
