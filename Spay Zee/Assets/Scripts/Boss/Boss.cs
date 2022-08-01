@@ -19,12 +19,12 @@ public class Boss : MonoBehaviour
     public int invokeStateStarter;
 
     public BossMood Mood;
-    
 
+    float laserCd = 0;
 
     private void Awake()
     {
-        closeDistance = 0.60f;
+        closeDistance = 1.60f;
 
         invokeStateStarter = 50;
         Mood = BossMood.Calm;
@@ -40,7 +40,7 @@ public class Boss : MonoBehaviour
 
     private void Update()
     {
-        if(life <= 0)
+        if (life <= 0)
         {
             isDead = true;
             Destroy(goap);
@@ -53,11 +53,19 @@ public class Boss : MonoBehaviour
             explosion.SetActive(true);
         }
 
-        if(feedbackTimer >= 1)
+        if (feedbackTimer >= 1)
         {
             SceneManager.LoadScene("Menu");
         }
+    
+        if(laserCd > 0)
+        {
+            laserCd -= Time.deltaTime;
+        }
     }
+
+    public void ResetLaserCD() => laserCd = 15f;
+    public bool IsLaserOnCD => laserCd > 0;
 
     public bool IsPlayerClose() => Vector2.Distance(playerPosition.position, transform.position) < closeDistance;
 

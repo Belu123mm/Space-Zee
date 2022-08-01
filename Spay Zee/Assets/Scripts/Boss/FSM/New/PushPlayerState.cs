@@ -15,12 +15,12 @@ public class PushPlayerState : MonoBaseState
     
     float timer = 0;
     int invokeCounter;
-    bool start;
     public override event Action OnNeedsReplan;
 
     Boss boss;
-    public PushPlayerState(Boss _boss, Model player)
+    public PushPlayerState(Boss _boss, Model player, Action onNeedsReplan)
     {
+        
         boss = _boss;
         _player = player;
 
@@ -30,12 +30,12 @@ public class PushPlayerState : MonoBaseState
         Shield.transform.rotation = boss.transform.rotation;
         ShieldBody= Shield.GetComponent<Rigidbody>();
         ShieldAnimator = Shield.GetComponent<Animator>();
+        OnNeedsReplan = onNeedsReplan;
     }
 
     public override void UpdateLoop()
     {
-        if (start)
-        {
+        
             ShieldAnimator.Play("push");
 
             Vector3 lookAtPos = _player.transform.position;
@@ -44,18 +44,15 @@ public class PushPlayerState : MonoBaseState
 
             if (boss.CheckBossLife() >= 50 && boss.CheckOverheating()>= 3)
             {
-                start = false;
                 timer = 0;
                 OnNeedsReplan?.Invoke();
             }
-        }
+        
   
-        if (start)
-        {
             timer += Time.deltaTime;
 
             boss.transform.position = Vector3.MoveTowards(boss.transform.position, _player.transform.position, Time.deltaTime);
-        }           
+                 
     }
 
     public override IState ProcessInput()
@@ -63,7 +60,6 @@ public class PushPlayerState : MonoBaseState
         if (timer >= 4 && invokeCounter <= 2 && boss.CheckBossLife() <= 50/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
         {
             timer = 0;
-            start = false;
             invokeCounter++;
             OnNeedsReplan?.Invoke();
             //return Transitions["OnInvokeWaveState"];
@@ -79,13 +75,12 @@ public class PushPlayerState : MonoBaseState
     
     public override Dictionary<string, object> Exit(IState to)
     {
-        start = false;
         timer = 0;
         return base.Exit(to);
     }
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-        start = true;
+
     }
 }

@@ -54,19 +54,13 @@ public class BossGoap : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<Model>();
-        attackState = new AttackState(boss, attackPosition, canons);
-        laserAttackState = new LaserAttackState(boss, laserGoTo, laserGuide, redLazer);
-        powerDownState = new PowerDownState(objective, batery, boss);
-        chargeState = new ChargeState(boss, player, warning, triggerCollider);
-        invokeWaveState = new InvokeWaveState(boss, enemySpawner, BossBase, BossHide);
-        pushPlayerState = new PushPlayerState(boss, player);
+        attackState = new AttackState(boss, attackPosition, canons, OnReplan);
+        laserAttackState = new LaserAttackState(boss, laserGoTo, laserGuide, redLazer, OnReplan);
+        powerDownState = new PowerDownState(objective, batery, boss, OnReplan);
+        chargeState = new ChargeState(boss, player, warning, triggerCollider, OnReplan);
+        invokeWaveState = new InvokeWaveState(boss, enemySpawner, BossBase, BossHide, OnReplan);
+        pushPlayerState = new PushPlayerState(boss, player,OnReplan);
 
-        attackState.OnNeedsReplan += OnReplan;
-        laserAttackState.OnNeedsReplan += OnReplan;
-        powerDownState.OnNeedsReplan += OnReplan;
-        chargeState.OnNeedsReplan += OnReplan;
-        invokeWaveState.OnNeedsReplan += OnReplan;
-        pushPlayerState.OnNeedsReplan += OnReplan;
 
         //OnlyPlan();
         PlanAndExecute();
@@ -82,10 +76,12 @@ public class BossGoap : MonoBehaviour
     {
         var actions = new List<GOAPAction>{
                                             new GOAPAction("Attack")
-                                                 .Pre(x => (int)x[BossState.PlayerLife] >= 0)
+                                                 .Pre(x => (int)x[BossState.PlayerLife] > 0)
+                                                 .Pre(x => (int)x[BossState.Overheating] < 5)
+                                                 .Pre(x => (bool)x[BossState.PlayerClose] == true)
                                                  .Pre(x => (BossMood)x[BossState.Mood] == BossMood.Calm)
                                                  .Effect(x => x[BossState.Overheating] = Mathf.Clamp((int)x[BossState.Overheating] + 1,0,20))
-                                                 .Effect(x => x[BossState.PlayerLife] = Mathf.Clamp((int)x[BossState.PlayerLife] - 2,0,20))
+                                                 .Effect(x => x[BossState.PlayerLife] = Mathf.Clamp((int)x[BossState.PlayerLife] - 2,0,500))
                                                  .LinkedState(attackState)
                                                  .Cost(2),
                                                   //Check to add change playerlife here
@@ -94,46 +90,46 @@ public class BossGoap : MonoBehaviour
                                                  .Pre(x => (int)x[BossState.PlayerLife] >= 0)
                                                  .Pre(x => (bool)x[BossState.PlayerClose] == false)
                                                  .Effect(x => x[BossState.PlayerClose] = true)
-                                                 .Effect(x => x[BossState.PlayerLife] = Mathf.Clamp((int)x[BossState.PlayerLife] - 1,0,20))
+                                                 .Effect(x => x[BossState.PlayerLife] = Mathf.Clamp((int)x[BossState.PlayerLife] - 1,0,500))
                                                  .LinkedState(chargeState)
-                                                 .Cost(2),
+                                                 .Cost(3f),
 
                                              new GOAPAction("Push")
-                                                 .Pre(x => (int)x[BossState.PlayerLife] >= 0)
-                                                 .Pre(x => (bool)x[BossState.PlayerClose] == true)
-                                                 .Pre(x => (BossMood)x[BossState.Mood] != BossMood.PoweredUp)
-                                                 .Effect(x => x[BossState.PlayerClose] = false)
-                                                 .LinkedState(pushPlayerState)
-                                                 .Cost(1),
+                                               .Pre(x => (int)x[BossState.PlayerLife] > 0)
+                                               .Pre(x => (bool)x[BossState.PlayerClose] == true)
+                                               .Pre(x => (BossMood)x[BossState.Mood] != BossMood.PoweredUp)
+                                               .Effect(x => x[BossState.PlayerClose] = false)
+                                               .LinkedState(pushPlayerState)
+                                               .Cost(1),
 
                                              new GOAPAction("Lazer")
-                                                 .Pre(x => (int)x[BossState.Overheating] <= 3)
                                                  .Pre(x => (int)x[BossState.PlayerLife] >= 0)
+                                                 .Pre(x => (int)x[BossState.Overheating] <= 3)
                                                  .Pre(x => (bool)x[BossState.PlayerClose] == false)
                                                  .Pre(x => (BossMood)x[BossState.Mood] == BossMood.PoweredUp)
-                                                 .Pre(x => (float)x[BossState.Health] > 50)
+                                                 //.Pre(x => (float)x[BossState.Health] > 50)
+                                                 .Pre(x => !(bool)x[BossState.LaserOnCD])
+                                                 .Effect(x => x[BossState.LaserOnCD] = true)
                                                  .Effect(x => x[BossState.Mood] = BossMood.Angry)
-                                                 .Effect(x => x[BossState.Overheating] = Mathf.Clamp((int)x[BossState.Overheating] + 1,0,20))
+                                                 .Effect(x => x[BossState.Overheating] = Mathf.Clamp((int)x[BossState.Overheating] + 2,0,20))
                                                  .Effect(x => x[BossState.PlayerLife] = Mathf.Clamp((int)x[BossState.PlayerLife] - 10,0,20))
                                                  .Cost(5)
                                                  .LinkedState(laserAttackState),
 
-                                             new GOAPAction("Invoke")
-                                                 .Pre(x => (int)x[BossState.Overheating] <= 3)
-                                                 .Pre(x => (int)x[BossState.PlayerLife] >= 0)
-                                                 .Pre(x => (float)x[BossState.Health] < 50)
-                                                 .Pre(x => (BossMood)x[BossState.Mood] == BossMood.Angry)
-                                                 .Effect(x => x[BossState.Health] = 100)
-                                                 .Effect(x => x[BossState.Overheating] = Mathf.Clamp((int)x[BossState.Overheating] + 1,0,20))
-                                                 .Effect(x => x[BossState.PlayerClose] = false)
+                                            new GOAPAction("Invoke")
+                                                   .Pre(x => (float)x[BossState.Health] < 50)
+                                                   .Pre(x => (int)x[BossState.Overheating] <= 3)
+                                                   .Pre(x => (BossMood)x[BossState.Mood] == BossMood.Angry)
+                                                   .Effect(x => x[BossState.Overheating] = Mathf.Clamp((int)x[BossState.Overheating] + 2,0,20))
+                                                   .Effect(x => x[BossState.Health] = Mathf.Clamp((float)x[BossState.Health] + 50f, 0f,50f))
+                                                   .Effect(x => x[BossState.PlayerClose] = false)
                                                  .Effect(x => x[BossState.Mood] = BossMood.Calm)
                                                  .Cost(2)
                                                  .LinkedState(invokeWaveState),
 
                                              new GOAPAction("PowerDown")
-                                                 .Pre(x => (int)x[BossState.PlayerLife] >= 0)
-                                                 .Pre(x => (int)x[BossState.Overheating] >= 3)
-                                                 .Pre(x => (BossMood)x[BossState.Mood] != BossMood.PoweredUp)
+                                                 //.Pre(x => (int)x[BossState.Overheating] >= 3)
+                                                 //.Pre(x => (BossMood)x[BossState.Mood] != BossMood.PoweredUp)
                                                  .Effect(x => x[BossState.Overheating] = 0)
                                                  .Effect(x => x[BossState.Mood] = BossMood.PoweredUp)
                                                  .LinkedState(powerDownState),
@@ -141,22 +137,34 @@ public class BossGoap : MonoBehaviour
 
         GOAPState from = new GOAPState();
 
-        from.values[BossState.PlayerClose] = boss.IsPlayerClose();  //bool
-        from.values[BossState.PlayerLife] = player.CurrentHP;       //int
-        from.values[BossState.Health] = boss.CheckBossLife();       //float
-        from.values[BossState.Overheating] = boss.CheckOverheating();//int
-        from.values[BossState.Mood] = boss.Mood;                    //string-enum
+        from.AddValue(BossState.PlayerLife, player.CurrentHP);       //int
+        from.AddValue(BossState.PlayerClose, boss.IsPlayerClose());  //bool
+        from.AddValue(BossState.Health, boss.CheckBossLife());       //float
+        from.AddValue(BossState.Overheating, boss.CheckOverheating());//int
+        from.AddValue(BossState.Mood, boss.Mood);                    //string-enum
+        from.AddValue(BossState.LaserOnCD, boss.IsLaserOnCD);
 
         GOAPState to = new GOAPState();
 
-        to.values[BossState.PlayerLife] = 0;
-        to.values[BossState.Health] = 100f;
+        to.valuesDictionary[BossState.PlayerLife] = 0;
+        to.valuesDictionary[BossState.Health] = Mathf.Max(boss.life, 50f);
+        //to.values[BossState.Overheating] = 0;
 
         var planner = new GoapPlanner();
 
         var plan = planner.Run(from, to, actions, useCoroutine, this);
 
-        ConfigureFsm(plan);
+        StartCoroutine(plane(plan));
+    }
+    IEnumerator plane(IEnumerable<GOAPAction> a)
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            if (a == null)
+                yield return new WaitForEndOfFrame();
+            else break;
+        }
+        ConfigureFsm(a);
     }
 
     private void OnReplan()
@@ -192,7 +200,8 @@ public enum BossState
     PoweredUp,
     Overheating,
     Health,
-    Mood
+    Mood,
+    LaserOnCD
 }
 public enum BossMood
 {

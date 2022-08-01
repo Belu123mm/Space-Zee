@@ -21,12 +21,13 @@ public class ChargeState : MonoBaseState
 
     public override event Action OnNeedsReplan;
 
-    public ChargeState(Boss _boss, Model player, GameObject _warning, GameObject _triggerCollider)
+    public ChargeState(Boss _boss, Model player, GameObject _warning, GameObject _triggerCollider, Action onNeedsReplan)
     {
         boss = _boss;
         _player = player;
         warning = _warning;
         triggerCollider = _triggerCollider;
+        OnNeedsReplan = onNeedsReplan;
     } 
 
     public override void UpdateLoop()
@@ -70,7 +71,9 @@ public class ChargeState : MonoBaseState
 
     public void GetLocation()
     {
-        location = _player.transform.position;
+        Vector3 dir = _player.transform.position - boss.transform.position;
+
+        location = boss.transform.position + dir.normalized * 3;
         hasLocation = true;
     }
 
@@ -81,8 +84,12 @@ public class ChargeState : MonoBaseState
             triggerCollider.SetActive(false);
             return Transitions["OnPushPlayerState"];
         }
+        else if (boss.IsPlayerClose())
+        {
+            OnNeedsReplan?.Invoke();
+        }
 
-        if(timer >= 3f)
+        if(timer >= 6f)
             OnNeedsReplan?.Invoke();
 
         return this;

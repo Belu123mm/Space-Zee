@@ -28,10 +28,8 @@ namespace FSM {
             return this;
         }
 
-        public virtual void Enter(IState from, Dictionary<string, object> transitionParameters = null) {
-
-            Debug.Log(Name);
-
+        public virtual void Enter(IState from, Dictionary<string, object> transitionParameters = null) 
+        {
             OnEnter?.Invoke(from, this);
             HasStarted = true;
         }
