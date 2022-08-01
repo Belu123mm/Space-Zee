@@ -36,6 +36,7 @@ public class InvokeWaveState : MonoBaseState
         Hiden = false;
         timer = 0;
         auxTim = 0;
+        enemySpawner.GetComponent<EnemySpawner>().maxWaves = 1000;
     }
 
     public override void UpdateLoop()
@@ -102,28 +103,27 @@ public class InvokeWaveState : MonoBaseState
     {
         if (timer >= 7 && Transitions.ContainsKey("OnChargeState") && invokeReEnterCounter > 1)
         {
-            InPosition = false;
-            Hiden = false;
-            spawned = false;
-            
-            timer = 0;
             invokeReEnterCounter = 0;
-            boss.invokeStateStarter -= 15;
-            boss.overheatingCounter++;
+            OnProcessInput();
             return Transitions["OnChargeState"];
         }
         else if (timer >= 8)
         {
-            boss.overheatingCounter++;
-            invokeReEnterCounter++;
-            InPosition = false;
-            Hiden = false;
-            spawned = false;
-            timer = 0;
-            boss.invokeStateStarter -= 15;
+            OnProcessInput();
             OnNeedsReplan?.Invoke();
         }
         return this;
+    }
+
+    private void OnProcessInput()
+    {
+        InPosition = false;
+        Hiden = false;
+        spawned = false;
+        enemySpawner.SetActive(false);
+        timer = 0;
+        boss.invokeStateStarter -= 15;
+        boss.overheatingCounter++;
     }
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
