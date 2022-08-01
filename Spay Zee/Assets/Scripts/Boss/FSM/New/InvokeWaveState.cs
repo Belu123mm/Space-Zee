@@ -92,7 +92,11 @@ public class InvokeWaveState : MonoBaseState
         if (spawned)
         {
             timer += Time.deltaTime;
-            boss.life += Time.deltaTime / 2f;
+            if (boss.life < 100f)
+            {
+                boss.life += Time.deltaTime / 2f;
+            }
+            else { boss.life = 100f; }
         }
     }
 
