@@ -16,29 +16,38 @@ public class AttackState : MonoBaseState
 
     public override event Action OnNeedsReplan;
 
-    public AttackState(Boss _boss, GameObject _position, List<Transform> _canons)
+    public AttackState(Boss _boss, GameObject _position, List<Transform> _canons, Action onNeedsReplan)
     {
         boss = _boss;
         position = _position;
-        canons = _canons;    
+        canons = _canons;
+        OnNeedsReplan = onNeedsReplan;
     }
-    public override void UpdateLoop() 
+    public override void UpdateLoop()
     {
-            if (bulletsTimer > timeToShoot)
+        if (bulletsTimer > timeToShoot)
+        {
+            foreach (var t in canons)
             {
-                foreach (var t in canons)
-                {
-                    Shoot(t);
-                }
-                bulletsTimer = 0;
-            }        
+                Shoot(t);
+            }
+            bulletsTimer = 0;
+        }
 
-            bulletsTimer += Time.deltaTime;
-            stateTimer += Time.deltaTime;
-            boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);        
+        bulletsTimer += Time.deltaTime;
+        stateTimer += Time.deltaTime;
+        boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);
+        overheatTimer += Time.deltaTime;
+        if (overheatTimer > 2f)
+        {
+            overheatTimer = 0;
+            boss.overheatingCounter++;
+        }
     }
 
-    public void Shoot(Transform t)
+    float overheatTimer = 0;
+
+public void Shoot(Transform t)
     {
         BulletPool.instance.SpawnBullet(t.position,t.parent.parent.localEulerAngles, 12).SetBehaviour(new EnemyLinearBullet());
     }
@@ -56,6 +65,7 @@ public class AttackState : MonoBaseState
     {
         stateTimer = 0;
         bulletsTimer = 0;
+        boss.Mood = BossMood.Angry;
         Debug.Log("entro a attack");
         base.Enter(from);
     }
@@ -64,6 +74,7 @@ public class AttackState : MonoBaseState
     {
         stateTimer = 0;
         bulletsTimer = 0;
+
         return base.Exit(to);
     }
 }

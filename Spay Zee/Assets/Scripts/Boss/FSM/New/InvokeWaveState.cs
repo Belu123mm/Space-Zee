@@ -21,17 +21,16 @@ public class InvokeWaveState : MonoBaseState
     bool InPosition;
     private bool Hiden;
     private bool spawned;
-    bool start;
     int invokeReEnterCounter;
 
     float auxTim = 0;
-    public InvokeWaveState(Boss _boss, GameObject _enemySpawner, GameObject _bossBase, GameObject _bossHide)
+    public InvokeWaveState(Boss _boss, GameObject _enemySpawner, GameObject _bossBase, GameObject _bossHide, Action onNeedsReplan)
     {
         boss = _boss;
         enemySpawner = _enemySpawner;
         BossBase = _bossBase;
         BossHide = _bossHide;
-
+        OnNeedsReplan = onNeedsReplan;
         InPosition = false;
         spawned = false;
         Hiden = false;
@@ -41,8 +40,7 @@ public class InvokeWaveState : MonoBaseState
 
     public override void UpdateLoop()
     {
-        if (start)
-        {
+        
             if (!InPosition)
             {
                 if (boss.transform.position != BossHide.transform.position)
@@ -86,7 +84,7 @@ public class InvokeWaveState : MonoBaseState
                     boss.transform.position = Vector3.MoveTowards(boss.transform.position, BossBase.transform.position, Time.deltaTime * 2);
                     if ((boss.transform.position == BossBase.transform.position)) Hiden = false;
                 }
-            }
+            
         }
   
         if (spawned)
@@ -107,7 +105,7 @@ public class InvokeWaveState : MonoBaseState
             InPosition = false;
             Hiden = false;
             spawned = false;
-            start = false;
+            
             timer = 0;
             invokeReEnterCounter = 0;
             boss.invokeStateStarter -= 15;
@@ -121,7 +119,6 @@ public class InvokeWaveState : MonoBaseState
             InPosition = false;
             Hiden = false;
             spawned = false;
-            start = false;
             timer = 0;
             boss.invokeStateStarter -= 15;
             OnNeedsReplan?.Invoke();
@@ -131,8 +128,8 @@ public class InvokeWaveState : MonoBaseState
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-        start = true;
         timer = 0;
+        base.Enter(from);
     }
 
     public override Dictionary<string, object> Exit(IState to)
