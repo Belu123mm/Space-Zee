@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GoapPlanner {
     
-    private const int _WATCHDOG_MAX = 2000;
+    private const int _WATCHDOG_MAX = 10000;
     private int _watchdog;
 
     public IEnumerable<GOAPAction> Run(GOAPState from, GOAPState to, IEnumerable<GOAPAction> actions, bool RunCoroutine, MonoBehaviour mono) {
@@ -65,18 +65,43 @@ public class GoapPlanner {
         return fsm;
     }
 
-    private static float GetHeuristic(GOAPState from,  GOAPState goal) => goal.values.Count(kv => !kv.In(from.values));
-    private static bool  Satisfies(GOAPState    state, GOAPState to)   => to.values.All(kv => kv.In(state.values));
+    private static float GetHeuristic(GOAPState from, GOAPState goal)
+    {
+        int a = goal.valuesDictionary.Count(kv => !kv.In(from.valuesDictionary));
+
+        //Debug.Log(a);
+        return a;
+    }
+    private static bool Satisfies(GOAPState from, GOAPState to)
+    {
+        //    Debug.Log(state + "----" + to + "SATIFIES? : ");
+       
+        foreach (var item in from.valuesDictionary)
+        {
+            if (to.valuesDictionary.ContainsKey(item.Key))
+            {
+                if (!from.valuesDictionary[item.Key].Equals(to.valuesDictionary[item.Key]))
+                {
+                    Debug.Log(item.Key + ":" + from.valuesDictionary[item.Key] + " ES DISTINTO A: " + to.valuesDictionary[item.Key]);
+                    return false;
+                }
+            }
+        }
+        //bool a = (to.values.All(kv => kv.In(state.values)));
+        //Debug.Log(a.ToString());
+        return true;
+    }
 
     private static IEnumerable<WeightedNode<GOAPState>> Explode(GOAPState node, IEnumerable<GOAPAction> actions, ref int   watchdog) 
     {
         if (watchdog == 0) return Enumerable.Empty<WeightedNode<GOAPState>>();
         watchdog--;
 
-        return actions.Where(action => action.preconditionsLambdas.All(kv => kv.Invoke(node.values)))
+        //Debug.Log("EXPLODE ON: " + node);
+        return actions.Where(action => action.preconditionsLambdas.All(kv => kv.Invoke(node.valuesDictionary)))
                       .Aggregate(new List<WeightedNode<GOAPState>>(), (possibleList, action) => {
                            var newState = new GOAPState(node);
-                           for (int i = 0; i < action.effectsLambdas.Count; i++) action.effectsLambdas[i](newState.values);
+                           for (int i = 0; i < action.effectsLambdas.Count; i++) action.effectsLambdas[i](newState.valuesDictionary);
                            newState.generatingAction = action;
                            newState.step             = node.step + 1;
 
