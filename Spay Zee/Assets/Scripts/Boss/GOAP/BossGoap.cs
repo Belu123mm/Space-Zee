@@ -137,12 +137,12 @@ public class BossGoap : MonoBehaviour
 
         GOAPState from = new GOAPState();
 
-        from.AddValue(BossState.PlayerLife, player.CurrentHP);       //int
-        from.AddValue(BossState.PlayerClose, boss.IsPlayerClose());  //bool
-        from.AddValue(BossState.Health, boss.CheckBossLife());       //float
-        from.AddValue(BossState.Overheating, boss.CheckOverheating());//int
-        from.AddValue(BossState.Mood, boss.Mood);                    //string-enum
-        from.AddValue(BossState.LaserOnCD, boss.IsLaserOnCD);
+        from.valuesDictionary[BossState.PlayerLife] = player.CurrentHP;       //int
+        from.valuesDictionary[BossState.PlayerClose] = boss.IsPlayerClose();  //bool
+        from.valuesDictionary[BossState.Health] = boss.CheckBossLife();       //float
+        from.valuesDictionary[BossState.Overheating] = boss.CheckOverheating();//int
+        from.valuesDictionary[BossState.Mood] = boss.Mood;                    //string-enum
+        from.valuesDictionary[BossState.LaserOnCD] = boss.IsLaserOnCD;
 
         GOAPState to = new GOAPState();
 
