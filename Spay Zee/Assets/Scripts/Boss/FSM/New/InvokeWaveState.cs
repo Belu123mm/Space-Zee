@@ -71,7 +71,7 @@ public class InvokeWaveState : MonoBaseState
                 auxTim += Time.deltaTime;
                 if (auxTim >= 3.1f)
                 {
-                    enemySpawner.SetActive(true);
+                    enemySpawner.GetComponent<EnemySpawner>().Spawn();
                     spawned = true;
                 }
             }
@@ -124,7 +124,6 @@ public class InvokeWaveState : MonoBaseState
         timer = 0;
         InPosition = false;
         boss.overheatingCounter++;
-        enemySpawner.GetComponent<EnemySpawner>().ResetSpawner();
         base.Enter(from);
     }
 
@@ -134,6 +133,7 @@ public class InvokeWaveState : MonoBaseState
         enemySpawner.SetActive(false);
         boss.Mood = BossMood.Calm;
         spawned = false;
+        auxTim = 0;
         return base.Exit(to);
     }
 }

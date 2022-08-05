@@ -6165,7 +6165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &129889985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6188,6 +6188,7 @@ MonoBehaviour:
   - {fileID: 613014583}
   maxSpawnTime: 14
   maxWaves: 4
+  bossRoom: 1
   grid: {fileID: 1377042180}
 --- !u!4 &129889986
 Transform:
@@ -93221,6 +93222,16 @@ PrefabInstance:
         type: 3}
       propertyPath: laserCd
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309106958793955266, guid: b4fee02805d18334eaf8e431f4cd520e,
+        type: 3}
+      propertyPath: Mood
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309106958793955266, guid: b4fee02805d18334eaf8e431f4cd520e,
+        type: 3}
+      propertyPath: life
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8459843918177410113, guid: b4fee02805d18334eaf8e431f4cd520e,
         type: 3}

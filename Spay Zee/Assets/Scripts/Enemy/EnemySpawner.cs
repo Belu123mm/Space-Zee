@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour, IObservable
     public float maxSpawnTime = 10;
     public int maxWaves;
     int _currentWave = 0;
-
+    public bool bossRoom;
 
     public SpatialGrid grid;
 
@@ -19,9 +19,6 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
     Lookuptable<int, float> _timeToSpawn;
 
-
-    IEnumerator spawnenemies;
-    
     private void Start()
     {
         SubscribeTo(SceneHandler.Instance);
@@ -38,10 +35,10 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
         AllBehaviours.Add(2, () => { return new HomingShooterEnemyBehaviour(); });
         AllBehaviours.Add(3, () => { return new ChaserEnemyHeavyBehaviour(); });
-
-        spawnenemies = SpawnEnemies();
-        StartCoroutine(spawnenemies);
-
+        if (!bossRoom)
+        {
+            StartCoroutine(SpawnEnemies());
+        }
     }
 
     float TimeBetweenRounds(int w)
@@ -56,13 +53,7 @@ public class EnemySpawner : MonoBehaviour, IObservable
             temp = 2f;
         return temp;
     }
-    public void ResetSpawner()
-    {
-        if(spawnenemies != null)
-            StopCoroutine(spawnenemies);
-    
-        spawnenemies = SpawnEnemies();
-    }
+
     IEnumerator SpawnEnemies()
     {
         _currentWave++;
@@ -76,20 +67,23 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
         if (_currentWave <= maxWaves)
         {
-            foreach (var pos in enemySpawnPoints)
-            {
-                var random = UnityEngine.Random.Range(0, AllBehaviours.Count);
-                _currentBehaviour = AllBehaviours[random]();
-                EnemyPool.instance.SpawnEnemy(pos.transform.position, pos.transform.localEulerAngles).SetBehaviour(_currentBehaviour);              
-            }
+            Spawn();
 
-        //grid.Refesh();
+            //grid.Refesh();
         }
 
         yield return new WaitForSeconds(TimeBetweenRounds(_currentWave));
 
-        spawnenemies = SpawnEnemies();
-        StartCoroutine(spawnenemies);
+    }
+
+    public void Spawn()
+    {
+        foreach (var pos in enemySpawnPoints)
+        {
+            var random = UnityEngine.Random.Range(0, AllBehaviours.Count);
+            _currentBehaviour = AllBehaviours[random]();
+            EnemyPool.instance.SpawnEnemy(pos.transform.position, pos.transform.localEulerAngles).SetBehaviour(_currentBehaviour);
+        }
     }
 
     public void NotifyObservers(string action)
