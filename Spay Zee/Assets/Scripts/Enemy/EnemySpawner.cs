@@ -74,6 +74,7 @@ public class EnemySpawner : MonoBehaviour, IObservable
 
         yield return new WaitForSeconds(TimeBetweenRounds(_currentWave));
 
+        StartCoroutine(SpawnEnemies());
     }
 
     public void Spawn()
