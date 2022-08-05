@@ -58,7 +58,10 @@ public class EnemySpawner : MonoBehaviour, IObservable
     }
     public void ResetSpawner()
     {
-        StopCoroutine(spawnenemies);
+        if(spawnenemies != null)
+            StopCoroutine(spawnenemies);
+    
+        spawnenemies = SpawnEnemies();
     }
     IEnumerator SpawnEnemies()
     {

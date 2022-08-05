@@ -37,36 +37,51 @@ public class AttackState : MonoBaseState
         bulletsTimer += Time.deltaTime;
         stateTimer += Time.deltaTime;
         boss.transform.Rotate(0, 0, 10 * Time.deltaTime * 20);
-        overheatTimer += Time.deltaTime;
-        if (overheatTimer > 2f)
-        {
-            overheatTimer = 0;
-            boss.overheatingCounter++;
-        }
+        overheatTimer += Time.deltaTime;        
     }
 
     float overheatTimer = 0;
 
-public void Shoot(Transform t)
+    public void Shoot(Transform t)
     {
-        BulletPool.instance.SpawnBullet(t.position,t.parent.parent.localEulerAngles, 12).SetBehaviour(new EnemyLinearBullet());
+        BulletPool.instance.SpawnBullet(t.position, t.parent.parent.localEulerAngles, 12).SetBehaviour(new EnemyLinearBullet());
     }
 
-    public override IState ProcessInput() 
+    public override IState ProcessInput()
     {
-        if (stateTimer >= 2)
+        if (stateTimer >= 4)
         {
-            OnNeedsReplan?.Invoke();
+            if (boss.life >= 50 )
+            {
+                if (boss.overheatingCounter <= 3 && !boss.IsPlayerClose() && Transitions.ContainsKey("OnLaserAttackState"))
+                {
+                    return Transitions["OnLaserAttackState"];
+                }
+                else if (!boss.IsPlayerClose() && Transitions.ContainsKey("OnChargeState"))
+                {
+                    return Transitions["OnChargeState"];
+                }
+            }
+            if (Transitions.ContainsKey("OnInvokeWaveState"))
+            {
+                return Transitions["OnInvokeWaveState"];
+            }
+            else
+            {
+                OnNeedsReplan?.Invoke();
+            }
         }
-            return this;
+        return this;
     }
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
+        overheatTimer = 0;
         stateTimer = 0;
         bulletsTimer = 0;
         boss.Mood = BossMood.Angry;
-        Debug.Log("entro a attack");
+            boss.overheatingCounter++;
+        //Debug.Log("entro a attack");
         base.Enter(from);
     }
 

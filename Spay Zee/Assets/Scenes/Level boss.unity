@@ -93217,6 +93217,11 @@ PrefabInstance:
       propertyPath: playerPosition
       value: 
       objectReference: {fileID: 782243222}
+    - target: {fileID: 8309106958793955266, guid: b4fee02805d18334eaf8e431f4cd520e,
+        type: 3}
+      propertyPath: laserCd
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8459843918177410113, guid: b4fee02805d18334eaf8e431f4cd520e,
         type: 3}
       propertyPath: attackPosition
@@ -93252,6 +93257,11 @@ PrefabInstance:
       propertyPath: objective
       value: 
       objectReference: {fileID: 49510245}
+    - target: {fileID: 8459843918177410113, guid: b4fee02805d18334eaf8e431f4cd520e,
+        type: 3}
+      propertyPath: useCoroutine
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8697837592177690206, guid: b4fee02805d18334eaf8e431f4cd520e,
         type: 3}
       propertyPath: objective

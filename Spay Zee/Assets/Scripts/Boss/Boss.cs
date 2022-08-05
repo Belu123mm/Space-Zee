@@ -20,14 +20,15 @@ public class Boss : MonoBehaviour
 
     public BossMood Mood;
 
-    float laserCd = 0;
+
+ public float laserCd = 0;
 
     private void Awake()
     {
         closeDistance = 1.60f;
 
         invokeStateStarter = 50;
-        Mood = BossMood.Calm;
+        //Mood = BossMood.Calm;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

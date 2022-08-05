@@ -26,31 +26,31 @@ public class LaserAttackState : MonoBaseState
         inPosition = false;
         timer = 0;
         OnNeedsReplan = onNeedsReplan;
-    }    
+    }
 
     public override void UpdateLoop()
     {
-            timer += Time.deltaTime;
+        timer += Time.deltaTime;
 
-            boss.transform.position = Vector3.MoveTowards(boss.transform.position, objective.transform.position, Time.deltaTime * 10);
+        boss.transform.position = Vector3.MoveTowards(boss.transform.position, objective.transform.position, Time.deltaTime * 10);
 
-            if (inPosition == false)
-            {
-                Vector3 lookAtPos = objective.transform.position;
-                lookAtPos.z = boss.transform.position.z;
-                boss.transform.up = lookAtPos - boss.transform.position;
-            }
+        if (inPosition == false)
+        {
+            Vector3 lookAtPos = objective.transform.position;
+            lookAtPos.z = boss.transform.position.z;
+            boss.transform.up = lookAtPos - boss.transform.position;
+        }
 
-            if (boss.transform.position == objective.transform.position)
-            {
-                inPosition = true;
-                forwardLazer.SetActive(true);
+        if (boss.transform.position == objective.transform.position)
+        {
+            inPosition = true;
+            forwardLazer.SetActive(true);
 
-                Vector3 lookAtPos = forwardLazer.transform.position;
-                lookAtPos.z = boss.transform.position.z;
-                boss.transform.up = lookAtPos - boss.transform.position;
-            }
-        
+            Vector3 lookAtPos = forwardLazer.transform.position;
+            lookAtPos.z = boss.transform.position.z;
+            boss.transform.up = lookAtPos - boss.transform.position;
+        }
+
 
         if (timer >= 4f)
             redLaser.SetActive(true);
@@ -61,36 +61,37 @@ public class LaserAttackState : MonoBaseState
 
     public override IState ProcessInput()
     {
-        if (timer >= 6.30f && boss.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
+        if (timer >= 6.30f)
         {
-            OnProcessInput();
-            return Transitions["OnPushPlayerState"];
-        }
-
-        if (timer >= 6.35f)
-        {
-            OnProcessInput();
+            if (boss.life < 50 && boss.overheatingCounter <= 3 && boss.Mood == BossMood.Angry && Transitions.ContainsKey("OnInvokeWaveState"))
+            {
+                return Transitions["OnInvokeWaveState"];
+            }
+            if (boss.overheatingCounter <= 5 && boss.IsPlayerClose() && Transitions.ContainsKey("OnPushPlayerState"))
+            {
+                return Transitions["OnPushPlayerState"];
+            }
+            else if (!boss.IsPlayerClose() && Transitions.ContainsKey("OnChargeState"))
+            {
+                return Transitions["OnChargeState"];
+            }
+            else
+                OnNeedsReplan?.Invoke();
         }
         return this;
     }
-
-    private void OnProcessInput()
-    {
-        boss.overheatingCounter++;
-        
-        forwardLazer.SetActive(false);
-        boss.Mood = BossMood.Angry;
-        OnNeedsReplan?.Invoke();
-    }
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
+        boss.overheatingCounter++;
         boss.ResetLaserCD();
-         timer = 0;
+        boss.Mood = BossMood.Angry;
+        timer = 0;
         base.Enter(from);
     }
 
     public override Dictionary<string, object> Exit(IState to)
     {
+        forwardLazer.SetActive(false);
         return base.Exit(to);
     }
 }

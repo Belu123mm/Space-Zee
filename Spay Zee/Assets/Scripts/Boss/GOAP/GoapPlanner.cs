@@ -25,8 +25,8 @@ public class GoapPlanner
                 node => Explode(node, actions, ref _watchdog),
                 state => GetHeuristic(state, to),
                 x => call = x));
-            Debug.Log(_watchdog);
-            Debug.Log(call);
+            //Debug.Log(_watchdog);
+            //Debug.Log(call);
             return CalculateGoap(call);
         }
         else
@@ -43,12 +43,12 @@ public class GoapPlanner
     private IEnumerable<GOAPAction> CalculateGoap(IEnumerable<GOAPState> sequence)
     {
 
-        foreach (var act in sequence.Skip(1))
-        {
-            Debug.Log(act);
-        }
-
-        Debug.Log("WATCHDOG " + _watchdog);
+        //foreach (var act in sequence.Skip(1))
+        //{
+        //    Debug.Log(act);
+        //}
+        //Debug.Log(sequence);
+        //Debug.Log("WATCHDOG " + _watchdog);
         return sequence.Skip(1).Select(x => x.generatingAction);
     }
 

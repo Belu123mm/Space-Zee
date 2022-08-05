@@ -12,7 +12,7 @@ public class PushPlayerState : MonoBaseState
     private Rigidbody ShieldBody;
 
     Model _player;
-    
+
     float timer = 0;
     int invokeCounter;
     public override event Action OnNeedsReplan;
@@ -20,7 +20,7 @@ public class PushPlayerState : MonoBaseState
     Boss boss;
     public PushPlayerState(Boss _boss, Model player, Action onNeedsReplan)
     {
-        
+
         boss = _boss;
         _player = player;
 
@@ -28,59 +28,56 @@ public class PushPlayerState : MonoBaseState
         Shield.transform.SetParent(boss.transform);
         Shield.transform.position = boss.transform.position;
         Shield.transform.rotation = boss.transform.rotation;
-        ShieldBody= Shield.GetComponent<Rigidbody>();
+        ShieldBody = Shield.GetComponent<Rigidbody>();
         ShieldAnimator = Shield.GetComponent<Animator>();
         OnNeedsReplan = onNeedsReplan;
     }
 
     public override void UpdateLoop()
     {
-        
-            ShieldAnimator.Play("push");
+        Vector3 lookAtPos = _player.transform.position;
+        lookAtPos.z = boss.transform.position.z;
+        boss.transform.up = lookAtPos - boss.transform.position;
 
-            Vector3 lookAtPos = _player.transform.position;
-            lookAtPos.z = boss.transform.position.z;
-            boss.transform.up = lookAtPos - boss.transform.position;
+        timer += Time.deltaTime;
 
-            if (boss.CheckBossLife() >= 50 && boss.CheckOverheating()>= 3)
-            {
-                timer = 0;
-                OnNeedsReplan?.Invoke();
-            }
-        
-  
-            timer += Time.deltaTime;
-
-            boss.transform.position = Vector3.MoveTowards(boss.transform.position, _player.transform.position, Time.deltaTime);
-                 
+        boss.transform.position = Vector3.MoveTowards(boss.transform.position, _player.transform.position, Time.deltaTime);
     }
 
     public override IState ProcessInput()
     {
-        if (timer >= 4 && invokeCounter <= 2 && boss.CheckBossLife() <= 50/* && Transitions.ContainsKey("OnInvokeWaveState")*/)
+        if (timer > 4)
         {
-            timer = 0;
-            invokeCounter++;
-            OnNeedsReplan?.Invoke();
-            //return Transitions["OnInvokeWaveState"];
-        }
-        else if (timer >= 4 && Transitions.ContainsKey("OnLaserAttackState"))
-        {
-            timer = 0;
-            return Transitions["OnLaserAttackState"];
+            if (boss.life < 50)
+            {
+                OnNeedsReplan?.Invoke();
+            }
+            else if (boss.overheatingCounter < 5 && boss.Mood == BossMood.Calm && Transitions.ContainsKey("OnAttackState"))
+            {
+                return Transitions["OnAttackState"];
+            }
+            else if (!boss.IsPlayerClose() && Transitions.ContainsKey("OnChargeState"))
+            {
+                return Transitions["OnChargeState"];
+            }
+            else
+                OnNeedsReplan?.Invoke();
         }
 
         return this;
     }
-    
-    public override Dictionary<string, object> Exit(IState to)
-    {
-        timer = 0;
-        return base.Exit(to);
-    }
 
     public override void Enter(IState from, Dictionary<string, object> transitionParameters = null)
     {
-
+        timer = 0;
+        invokeCounter++;
+        boss.Mood = BossMood.Calm;
+        boss.overheatingCounter++;
+        ShieldAnimator.Play("push");
+        base.Enter(from);
+    }
+    public override Dictionary<string, object> Exit(IState to)
+    {
+        return base.Exit(to);
     }
 }
