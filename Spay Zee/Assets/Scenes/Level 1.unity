@@ -6656,6 +6656,7 @@ MonoBehaviour:
   - {fileID: 2011325796}
   maxSpawnTime: 7.5
   maxWaves: 3
+  bossRoom: 0
   grid: {fileID: 963932149}
 --- !u!4 &129889986
 Transform:
@@ -25838,7 +25839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1348331355, guid: 778424b086a30674a8171171c41c45ed, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2000778436, guid: 778424b086a30674a8171171c41c45ed, type: 3}
       propertyPath: m_RootOrder
@@ -25847,7 +25848,7 @@ PrefabInstance:
     - target: {fileID: 1290118606467413154, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1290118606846566962, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
@@ -25903,7 +25904,7 @@ PrefabInstance:
     - target: {fileID: 1290118607869795075, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
       propertyPath: maxHP
-      value: 100000
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1290118607869795085, guid: 778424b086a30674a8171171c41c45ed,
         type: 3}
