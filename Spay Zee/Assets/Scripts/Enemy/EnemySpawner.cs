@@ -18,6 +18,9 @@ public class EnemySpawner : MonoBehaviour, IObservable
     Dictionary<int, Func<EnemyBehaviour>> AllBehaviours = new Dictionary<int, Func<EnemyBehaviour>>();
 
     Lookuptable<int, float> _timeToSpawn;
+
+
+    IEnumerator spawnenemies;
     
     private void Start()
     {
@@ -36,7 +39,8 @@ public class EnemySpawner : MonoBehaviour, IObservable
         AllBehaviours.Add(2, () => { return new HomingShooterEnemyBehaviour(); });
         AllBehaviours.Add(3, () => { return new ChaserEnemyHeavyBehaviour(); });
 
-        StartCoroutine(SpawnEnemies());
+        spawnenemies = SpawnEnemies();
+        StartCoroutine(spawnenemies);
 
     }
 
@@ -52,7 +56,10 @@ public class EnemySpawner : MonoBehaviour, IObservable
             temp = 2f;
         return temp;
     }
-
+    public void ResetSpawner()
+    {
+        StopCoroutine(spawnenemies);
+    }
     IEnumerator SpawnEnemies()
     {
         _currentWave++;
@@ -77,7 +84,9 @@ public class EnemySpawner : MonoBehaviour, IObservable
         }
 
         yield return new WaitForSeconds(TimeBetweenRounds(_currentWave));
-        StartCoroutine(SpawnEnemies());
+
+        spawnenemies = SpawnEnemies();
+        StartCoroutine(spawnenemies);
     }
 
     public void NotifyObservers(string action)
